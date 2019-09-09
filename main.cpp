@@ -1,6 +1,8 @@
  #include "Room.h"
 #include "Creature.h"
-
+#include "NPC.h"
+#include "Animal.h"
+#include "PC.h"
 Room * movePlayer(string direction, Room ** roomList, Room * currentRoom){
     if(direction=="east"){
         if(currentRoom->getEast() == -1){
@@ -63,9 +65,21 @@ int main() {
     for(int i = 0; i<numCreatures; i++){
         int type,room;
         cin >> type >> room;
-        creatures[i] = new Creature(type,room);
+        if(type == 0){
+            creatures[i] = new PC(type,room);
+        }else if(type ==1){
+            creatures[i] = new Animal(type,room);
+
+        }else if (type == 2){
+            creatures[i] = new NPC(type,room);
+
+        }
+        else{
+            creatures[i] = new Creature(type,room);
+
+        }
         roomList[room]->addCreature();
-        if(type == 2){
+        if(type == 0){
             currentRoom =roomList[room];
         }
     }

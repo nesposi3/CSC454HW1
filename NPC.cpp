@@ -3,3 +3,7 @@
 //
 
 #include "NPC.h"
+
+NPC::NPC(int type, int room) : Creature(type, room) {
+
+}

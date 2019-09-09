@@ -5,9 +5,13 @@
 #ifndef HOMEWORK1_NPC_H
 #define HOMEWORK1_NPC_H
 
+#include <iostream>
+#include "Creature.h"
+using namespace std;
+class NPC : public Creature {
 
-class NPC {
-
+public:
+    NPC(int type, int room);
 };
 
 
