@@ -102,9 +102,11 @@ int main() {
                 currentRoom = movePlayer(command,roomList,currentRoom);
                 currentRoom->addCreature();
             } else if(command.find(':')!=string::npos){
-                string name = command.substr(0,command.find(':'));
+                int name = stoi(command.substr(0,command.find(':')));
                 string action = command.substr((1 + command.find(':')));
-
+                if(action=="look"){
+                    cout << roomList[creatures[name]->getRoom()]->toString() << endl;
+                }
             }else{
                 cout << "Unknown command: " << command  <<endl;
             }
