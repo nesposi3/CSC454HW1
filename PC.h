@@ -15,7 +15,7 @@ class PC : public Creature {
         }
         void addRespect(int num);
         void subRespect(int num);
-
+        virtual bool isRoomSufficient(Room * room);
 private:
         int respect;
 };

@@ -15,6 +15,7 @@ public:
     Animal(int type, int room) : Creature(type, room) {
 
     }
+    virtual bool isRoomSufficient(Room * room);
 };
 
 

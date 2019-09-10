@@ -15,3 +15,7 @@ string Creature::toString() {
     getline(stream,out);
     return out;
 }
+
+bool Creature::isRoomSufficient(Room *room) {
+    return true;
+}

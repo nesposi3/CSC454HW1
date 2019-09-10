@@ -3,3 +3,6 @@
 //
 
 #include "Animal.h"
+bool Animal::isRoomSufficient(Room *room) {
+    return room->getState()<2;
+}

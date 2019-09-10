@@ -11,3 +11,6 @@ void PC::addRespect(int num) {
 void PC::subRespect(int num) {
     this->respect = this->respect - num;
 }
+bool PC::isRoomSufficient(Room *room) {
+    return true;
+}

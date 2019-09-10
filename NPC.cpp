@@ -7,3 +7,6 @@
 NPC::NPC(int type, int room) : Creature(type, room) {
 
 }
+bool NPC::isRoomSufficient(Room *room) {
+    return room->getState() > 0;
+}

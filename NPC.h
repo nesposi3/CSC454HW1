@@ -12,6 +12,7 @@ class NPC : public Creature {
 
 public:
     NPC(int type, int room);
+    virtual bool isRoomSufficient(Room * room);
 };
 
 

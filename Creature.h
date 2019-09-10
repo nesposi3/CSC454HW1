@@ -6,6 +6,8 @@
 #define HOMEWORK1_CREATURE_H
 
 #include <iostream>
+#include "Room.h"
+
 using namespace std;
 class Creature {
     public:
@@ -13,7 +15,7 @@ class Creature {
         virtual int getType(){return this->creatureType;};
         virtual int getRoom(){ return this->roomNumber;};
         virtual string toString();
-
+        virtual bool isRoomSufficient(Room * room);
     protected:
         int creatureType;
         int roomNumber;
