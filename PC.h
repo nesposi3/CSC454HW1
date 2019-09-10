@@ -11,8 +11,13 @@
 class PC : public Creature {
     public:
         PC(int type,int room): Creature(type,room){
-
+            this->respect = 40;
         }
+        void addRespect(int num);
+        void subRespect(int num);
+
+private:
+        int respect;
 };
 
 

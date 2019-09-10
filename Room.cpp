@@ -41,9 +41,27 @@ int Room::getWest() {
 void Room::addCreature(){
     this->numCreatures++;
 }
+void Room::removeCreature() {
+    this->numCreatures--;
+}
 int Room::getNumCreatures(){
     return this->numCreatures;
 }
 void Room::printString(){
      cout << "Room no. " << this->num << " North: " << this->north << " South: " << this->south << " East: " << this->east << " West " << this->west;
+}
+
+void Room::clean() {
+    this->state++;
+}
+void Room::dirty() {
+    this->state--;
+}
+
+string Room::toString() {
+    stringstream stream;
+    string out;
+    stream << "Room no. " <<this->num  <<". "<< this->numCreatures << " creatures. " << "Cleanliness: " << this->state << " North: " << this->north << " South: " << this->south << " East: " << this->east << " West " << this->west;
+    getline(stream,out);
+    return out;
 }

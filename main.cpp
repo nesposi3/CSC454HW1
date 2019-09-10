@@ -4,6 +4,7 @@
 #include "Animal.h"
 #include "PC.h"
 Room * movePlayer(string direction, Room ** roomList, Room * currentRoom){
+    currentRoom->removeCreature();
     if(direction=="east"){
         if(currentRoom->getEast() == -1){
             cout << "No room to the East" << endl;
@@ -28,7 +29,6 @@ Room * movePlayer(string direction, Room ** roomList, Room * currentRoom){
             return currentRoom;
         }
         else{
-            cout << currentRoom->getSouth() << endl;
             return roomList[currentRoom->getSouth()];
         }
     } else
@@ -62,6 +62,7 @@ int main() {
     cin >>numCreatures;
     Creature * creatures[numCreatures];
     Room * currentRoom = roomList[0];
+    Room * commandRoom = roomList[0];
     for(int i = 0; i<numCreatures; i++){
         int type,room;
         cin >> type >> room;
@@ -86,24 +87,35 @@ int main() {
     while (true) {
         string command;
         getline(cin, command);
-        cout << command << endl;
         if(command != ""){
-            //currentRoom->printString();
             if(command == "exit"){
                 break;
             }else
             if(command == "look"){
-                cout << "Room " << currentRoom->getNum() << ". " << currentRoom->getNumCreatures() << " creatures" << endl;
+                cout << currentRoom->toString() << endl;
+            }else if(command == "clean"){
+                currentRoom->clean();
+            }else if(command =="dirty"){
+                currentRoom->dirty();
             }
-            else{
+            else if(command == "north" || command =="south" || command =="east" || command == "west"){
                 currentRoom = movePlayer(command,roomList,currentRoom);
+                currentRoom->addCreature();
+            } else if(command.find(':')!=string::npos){
+                string name = command.substr(0,command.find(':'));
+                string action = command.substr((1 + command.find(':')));
+
+            }else{
+                cout << "Unknown command: " << command  <<endl;
             }
+
         }
 
     }
 
     //cleanup
     delete(currentRoom);
+    delete(commandRoom);
     for(int i =0; i<numRooms; i++){
         delete(roomList[i]);
     }

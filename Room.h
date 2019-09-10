@@ -22,9 +22,13 @@ public:
     int getEast();
     int getWest();
     int getNumCreatures();
+    string toString();
     void printString();
     void setState(int x);
     void addCreature();
+    void removeCreature();
+    void clean();
+    void dirty();
 private:
     int state;
     int num;
