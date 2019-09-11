@@ -61,6 +61,7 @@ int main() {
     }
     cin >>numCreatures;
     Creature * creatures[numCreatures];
+    PC * playerCharacter = NULL;
     Room * currentRoom = roomList[0];
     Room * commandRoom = roomList[0];
     for(int i = 0; i<numCreatures; i++){
@@ -68,6 +69,7 @@ int main() {
         cin >> type >> room;
         if(type == 0){
             creatures[i] = new PC(type,room);
+            playerCharacter = (PC *) creatures[i];
         }else if(type ==1){
             creatures[i] = new Animal(type,room);
 
@@ -95,34 +97,63 @@ int main() {
                 cout << currentRoom->toString() << endl;
             }else if(command == "clean"){
                 currentRoom->clean();
+                for (int i = 0; i < numCreatures ; ++i) {
+                    if(creatures[i]->isRoomSufficient(currentRoom)){
+                        cout << creatures[i]->getType() << endl;
+                    }
+                }
             }else if(command =="dirty"){
                 currentRoom->dirty();
+                for (int i = 0; i < numCreatures ; ++i) {
+                    if(creatures[i]->isRoomSufficient(currentRoom)){
+                        cout << creatures[i]->getType() << endl;
+                    }
+                }
             }
             else if(command == "north" || command =="south" || command =="east" || command == "west"){
                 currentRoom = movePlayer(command,roomList,currentRoom);
                 currentRoom->addCreature();
             } else if(command.find(':')!=string::npos){
+                Creature* commandCreature;
                 int name = stoi(command.substr(0,command.find(':')));
                 string action = command.substr((1 + command.find(':')));
+                commandCreature = creatures[name];
+                commandRoom = roomList[commandCreature->getRoom()];
                 if(action=="look"){
-                    cout << roomList[creatures[name]->getRoom()]->toString() << endl;
+                    cout << commandRoom->toString() << endl;
+                }else if(action == "clean"){
+                    if(commandCreature->inSameRoom(playerCharacter)){
+                        currentRoom->clean();
+                    }else{
+                        cout <<"Creature " << name << " is not in the same room as the PC"<<endl;
+                    }
+                }else if (action == "dirty"){
+                    if(commandCreature->inSameRoom(playerCharacter)){
+                        currentRoom->dirty();
+                    } else{
+                        cout <<"Creature " << name << " is not in the same room as the PC"<<endl;
+                    }
                 }
             }else{
                 cout << "Unknown command: " << command  <<endl;
             }
-
+            if(playerCharacter->getRespect()>79){
+                cout<<"Good ending"<<endl;
+                return 0;
+            }else if(playerCharacter->getRespect()<1){
+                cout<<"Bad ending"<<endl;
+                return 0;
+            }
         }
 
     }
 
     //cleanup
-    delete(currentRoom);
-    delete(commandRoom);
     for(int i =0; i<numRooms; i++){
-        delete(roomList[i]);
+        delete roomList[i];
     }
     for(int i = 0; i< numCreatures; i++){
-        delete(creatures[i]);
+        delete creatures[i];
     }
     return 0;
 }

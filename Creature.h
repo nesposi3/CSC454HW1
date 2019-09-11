@@ -16,6 +16,7 @@ class Creature {
         virtual int getRoom(){ return this->roomNumber;};
         virtual string toString();
         virtual bool isRoomSufficient(Room * room);
+        bool inSameRoom( Creature* other);
     protected:
         int creatureType;
         int roomNumber;

@@ -14,3 +14,7 @@ void PC::subRespect(int num) {
 bool PC::isRoomSufficient(Room *room) {
     return true;
 }
+
+int PC::getRespect() {
+    return this->respect;
+}

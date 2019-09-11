@@ -19,3 +19,7 @@ string Creature::toString() {
 bool Creature::isRoomSufficient(Room *room) {
     return true;
 }
+
+bool Creature::inSameRoom(Creature * other) {
+    return(this->getRoom()==other->getRoom());
+}
