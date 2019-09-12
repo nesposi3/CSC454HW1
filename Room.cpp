@@ -51,11 +51,21 @@ void Room::printString(){
      cout << "Room no. " << this->num << " North: " << this->north << " South: " << this->south << " East: " << this->east << " West " << this->west;
 }
 
-void Room::clean() {
-    this->state++;
+bool Room::clean() {
+    if(this->state!=2){
+        this->state++;
+        return true;
+    }else{
+        return false;
+    }
 }
-void Room::dirty() {
-    this->state--;
+bool Room::dirty() {
+    if(this->state!=0){
+        this->state--;
+        return true;
+    }else{
+        return false;
+    }
 }
 
 string Room::toString() {

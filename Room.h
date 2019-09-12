@@ -27,8 +27,8 @@ public:
     void setState(int x);
     void addCreature();
     void removeCreature();
-    void clean();
-    void dirty();
+    bool clean();
+    bool dirty();
 private:
     int state;
     int num;
