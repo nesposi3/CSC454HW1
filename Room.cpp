@@ -19,10 +19,6 @@ int Room::getState() {
     return  this->state;
 }
 
-void Room::setState(int x) {
-    this->state =x;
-}
-
 int Room::getNorth() {
     return this->north;
 }
@@ -47,9 +43,6 @@ void Room::removeCreature() {
 int Room::getNumCreatures(){
     return this->numCreatures;
 }
-void Room::printString(){
-     cout << "Room no. " << this->num << " North: " << this->north << " South: " << this->south << " East: " << this->east << " West " << this->west;
-}
 
 bool Room::clean() {
     if(this->state!=2){
@@ -71,7 +64,75 @@ bool Room::dirty() {
 string Room::toString() {
     stringstream stream;
     string out;
-    stream << "Room no. " <<this->num  <<". "<< this->numCreatures << " creatures. " << "Cleanliness: " << this->state << " North: " << this->north << " South: " << this->south << " East: " << this->east << " West " << this->west;
+    string cleanStatus;
+    if(this->state==0){
+        cleanStatus = "dirty";
+    }
+    else if(this->state==1){
+        cleanStatus = "half dirty";
+    }
+    else{
+        cleanStatus="clean";
+    }
+
+    stream << "Room no. " <<this->num  <<". "<< this->numCreatures << " creatures. " << "Cleanliness: " << cleanStatus << " North: " << this->north << " South: " << this->south << " East: " << this->east << " West " << this->west;
     getline(stream,out);
     return out;
 }
+
+bool Room::hasNeighbors() {
+    return (this->east!=-1 || this->south !=-1 || this->north !=-1 || this->west !=-1);
+}
+
+bool Room::hasAvailableNeighbors(Room ** roomList){
+    bool out = false;
+    if(!this->hasNeighbors()){
+        return false;
+    }
+    if(this->east!=-1){
+        out = !roomList[this->east]->isFull() || out;
+    }
+    if(this->west!=-1){
+        out = !roomList[this->west]->isFull() || out;
+    }
+    if(this->north!=-1){
+        out = !roomList[this->north]->isFull() || out;
+    }
+    if(this->south!=-1){
+        out = !roomList[this->south]->isFull() || out;
+    }
+    cout << "Has available neighbors" << out << endl;
+    return out;
+}
+
+vector<int> Room::getNeighbors() {
+    vector<int> out = vector<int>();
+    if(this->north!=-1){
+        out.push_back(this->north);
+    }
+    if(this->south!=-1){
+        out.push_back(this->south);
+    }
+    if(this->east!=-1){
+        out.push_back(this->east);
+    }
+    if(this->west!=-1){
+        out.push_back(this->west);
+    }
+    return out;
+}
+
+int Room::getRandomNeighbor() {
+    if(this->hasNeighbors()){
+        return -1;
+    }else{
+        vector<int> neighbors = this->getNeighbors();
+        return neighbors[0];
+    }
+}
+
+bool Room::isFull() {
+    return (this->getNumCreatures()>9);
+}
+
+

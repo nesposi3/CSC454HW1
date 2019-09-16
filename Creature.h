@@ -6,6 +6,7 @@
 #define HOMEWORK1_CREATURE_H
 
 #include <iostream>
+#include <sstream>
 #include "Room.h"
 
 using namespace std;
@@ -17,6 +18,7 @@ class Creature {
         virtual string toString();
         virtual bool isRoomSufficient(Room * room);
         bool inSameRoom( Creature* other);
+        void setRoom(int num);
     protected:
         int creatureType;
         int roomNumber;

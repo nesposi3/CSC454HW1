@@ -100,6 +100,7 @@ int main() {
         getline(cin, command);
         if (!command.empty()) {
             if (command == "exit") {
+                cout <<"Goodbye" << endl;
                 break;
             } else if (command == "look") {
                 cout << currentRoom->toString() << endl;
@@ -108,13 +109,20 @@ int main() {
                     cout << "Cannot clean an already clean room" << endl;
                 } else {
                     for (int i = 0; i < numCreatures; ++i) {
-                        if (creatures[i]->isRoomSufficient(currentRoom) &&
-                            creatures[i]->getRoom() == currentRoom->getNum()) {
-                            cout << creatures[i]->getType() << endl;
-                        } else {
-                            cout << "Growl" << endl;
-                            playerCharacter->subRespect(1);
-
+                        Creature * currentCreature = creatures[i];
+                        if(currentCreature->inSameRoom(playerCharacter)){
+                            if (currentCreature->isRoomSufficient(currentRoom)) {
+                                cout << currentCreature->getType() << endl;
+                            } else {
+                                cout << "Growl" << endl;
+                                playerCharacter->subRespect(1);
+                                if(currentRoom->hasAvailableNeighbors(roomList)){
+                                    int newRoom = currentRoom->getRandomNeighbor();
+                                    currentCreature->setRoom(newRoom);
+                                    currentRoom->removeCreature();
+                                    roomList[newRoom]->addCreature();
+                                }
+                            }
                         }
                     }
                 }
@@ -163,10 +171,10 @@ int main() {
             cout << playerCharacter->getRespect() << endl;
             if (playerCharacter->getRespect() > 79) {
                 cout << "Good ending" << endl;
-                return 0;
+                break;
             } else if (playerCharacter->getRespect() < 1) {
                 cout << "Bad ending" << endl;
-                return 0;
+                break;
             }
         }
 

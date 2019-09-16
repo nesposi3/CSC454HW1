@@ -2,7 +2,6 @@
 // Created by nick on 9/3/19.
 //
 
-#include <sstream>
 #include "Creature.h"
 Creature::Creature(int type, int room) {
     this->roomNumber = room;
@@ -22,4 +21,7 @@ bool Creature::isRoomSufficient(Room *room) {
 
 bool Creature::inSameRoom(Creature * other) {
     return(this->getRoom()==other->getRoom());
+}
+void Creature::setRoom(int num){
+    this->roomNumber=num;
 }

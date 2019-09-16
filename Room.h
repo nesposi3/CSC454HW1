@@ -9,7 +9,6 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-
 using namespace std;
 class Room{
 public:
@@ -23,12 +22,15 @@ public:
     int getWest();
     int getNumCreatures();
     string toString();
-    void printString();
-    void setState(int x);
     void addCreature();
     void removeCreature();
     bool clean();
     bool dirty();
+    bool hasNeighbors();
+    bool isFull();
+    bool hasAvailableNeighbors(Room ** rooomList);
+    int getRandomNeighbor();
+    vector<int> getNeighbors();
 private:
     int state;
     int num;
