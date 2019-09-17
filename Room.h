@@ -32,6 +32,7 @@ public:
     bool hasAvailableNeighbors(Room ** rooomList);
     int getRandomNeighbor();
     vector<int> getNeighbors();
+    void setState(int num);
 private:
     int state;
     int num;

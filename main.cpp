@@ -123,6 +123,9 @@ int main() {
                                     currentCreature->setRoom(newRoom);
                                     currentRoom->removeCreature();
                                     roomList[newRoom]->addCreature();
+                                    if(!currentCreature->isRoomSufficient(roomList[newRoom])){
+                                        roomList[newRoom]->setState(1);
+                                    }
                                 }
                                 else{
                                     //TODO Logic for exiting the simulation
@@ -147,6 +150,9 @@ int main() {
                                     currentCreature->setRoom(newRoom);
                                     currentRoom->removeCreature();
                                     roomList[newRoom]->addCreature();
+                                    if(!currentCreature->isRoomSufficient(roomList[newRoom])){
+                                        roomList[newRoom]->setState(1);
+                                    }
                                 }
                                 else{
                                     //TODO Logic for exiting the simulation

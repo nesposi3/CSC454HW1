@@ -131,4 +131,8 @@ bool Room::isFull() {
     return (this->getNumCreatures()>9);
 }
 
+void Room::setState(int num) {
+    this->state = num;
+}
+
 
