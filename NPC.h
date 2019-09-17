@@ -11,8 +11,10 @@ using namespace std;
 class NPC : public Creature {
 
 public:
-    NPC(int type, int room);
+    NPC(int type, int room,int numCreatures);
     virtual bool isRoomSufficient(Room * room);
+    virtual int reactToChange(bool clean) ;
+    virtual string toString();
 };
 
 

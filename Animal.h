@@ -9,13 +9,14 @@
 #include "Creature.h"
 using namespace std;
 class Animal : public Creature{
-    virtual string toString(){}
 
 public:
-    Animal(int type, int room) : Creature(type, room) {
+    Animal(int type, int room,int creatureNumber) : Creature(type, room,creatureNumber) {
 
     }
+    virtual string toString();
     virtual bool isRoomSufficient(Room * room);
+    int reactToChange(bool clean);
 };
 
 

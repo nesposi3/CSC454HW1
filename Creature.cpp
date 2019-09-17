@@ -3,9 +3,10 @@
 //
 
 #include "Creature.h"
-Creature::Creature(int type, int room) {
+Creature::Creature(int type, int room,int creatureNumber) {
     this->roomNumber = room;
     this->creatureType = type;
+    this->creatureNumber = creatureNumber;
 }
 string Creature::toString() {
     stringstream stream;
@@ -24,4 +25,8 @@ bool Creature::inSameRoom(Creature * other) {
 }
 void Creature::setRoom(int num){
     this->roomNumber=num;
+}
+//Creature reactToChange should never happen
+int Creature::reactToChange(bool clean) {
+    return false;
 }

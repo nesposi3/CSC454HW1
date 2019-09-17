@@ -10,13 +10,15 @@
 
 class PC : public Creature {
     public:
-        PC(int type,int room): Creature(type,room){
+        PC(int type,int room,int creatureNumber): Creature(type,room,creatureNumber){
             this->respect = 40;
         }
         void addRespect(int num);
         void subRespect(int num);
         int getRespect();
+        virtual string toString();
         virtual bool isRoomSufficient(Room * room);
+        virtual int reactToChange(bool clean);
     private:
         int respect;
 };

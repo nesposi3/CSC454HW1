@@ -14,7 +14,17 @@ void PC::subRespect(int num) {
 bool PC::isRoomSufficient(Room *room) {
     return true;
 }
-
+string PC::toString() {
+    stringstream stream;
+    string out;
+    stream << "PC " << creatureNumber;
+    getline(stream,out);
+    return out;
+}
 int PC::getRespect() {
     return this->respect;
+}
+// PC will not change its respect
+int PC::reactToChange(bool clean) {
+    return 0;
 }

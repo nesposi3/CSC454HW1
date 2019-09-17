@@ -101,7 +101,6 @@ bool Room::hasAvailableNeighbors(Room ** roomList){
     if(this->south!=-1){
         out = !roomList[this->south]->isFull() || out;
     }
-    cout << "Has available neighbors" << out << endl;
     return out;
 }
 
@@ -123,12 +122,9 @@ vector<int> Room::getNeighbors() {
 }
 
 int Room::getRandomNeighbor() {
-    if(this->hasNeighbors()){
-        return -1;
-    }else{
-        vector<int> neighbors = this->getNeighbors();
-        return neighbors[0];
-    }
+    vector<int> neighbors = this->getNeighbors();
+    int randNum = (rand() % neighbors.size());
+    return neighbors[randNum];
 }
 
 bool Room::isFull() {

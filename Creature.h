@@ -12,11 +12,12 @@
 using namespace std;
 class Creature {
     public:
-        Creature(int type, int room);
+        Creature(int type, int room,int creatureNumber);
         virtual int getType(){return this->creatureType;};
         virtual int getRoom(){ return this->roomNumber;};
         virtual string toString();
         virtual bool isRoomSufficient(Room * room);
+        virtual int reactToChange(bool clean);
         bool inSameRoom( Creature* other);
         void setRoom(int num);
     protected:
