@@ -125,7 +125,7 @@ int main() {
                                     roomList[newRoom]->addCreature();
                                 }
                                 else{
-
+                                    //TODO Logic for exiting the simulation
                                 }
                             }
                         }
@@ -147,6 +147,9 @@ int main() {
                                     currentCreature->setRoom(newRoom);
                                     currentRoom->removeCreature();
                                     roomList[newRoom]->addCreature();
+                                }
+                                else{
+                                    //TODO Logic for exiting the simulation
                                 }
                             }
                         }
