@@ -279,17 +279,23 @@ int main() {
                     cout << commandCreature->toString() << " is not in the same room as the PC" << endl;
                 }
             } else if (command == "help") {
-                string help = ("hey"
-                               "there");
+                string help = ("Command List:\n"
+                               "look: Show status of the current room\n"
+                               "clean: Increase the room's cleanliness by one level\n"
+                               "dirty: Decrease thr room's cleanliness by one level\n"
+                               "north/south/east/west: move in that direction if possible\n"
+                               "quit: exit the game\n"
+                               "To preform actions using other creatures, use the form:\n"
+                               "    <id>:<action>");
                 cout << help << endl;
             } else {
                 cout << "Unknown command: " << command << endl;
             }
             if (playerCharacter->getRespect() > 79) {
-                cout << "Good ending" << endl;
+                cout << "Congratulations, you've won!" << endl;
                 break;
             } else if (playerCharacter->getRespect() < 1) {
-                cout << "Bad ending" << endl;
+                cout << "You have lost, better luck next time!" << endl;
                 break;
             }
         }
