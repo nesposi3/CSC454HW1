@@ -17,7 +17,8 @@ class Creature {
         virtual int getRoom(){ return this->roomNumber;};
         virtual string toString();
         virtual bool isRoomSufficient(Room * room);
-        virtual int reactToChange(bool clean);
+        virtual int reactToChange(int respect, int id,bool clean);
+        int getCreatureNumber();
         bool inSameRoom( Creature* other);
         void setRoom(int num);
     protected:

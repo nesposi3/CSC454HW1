@@ -27,6 +27,10 @@ void Creature::setRoom(int num){
     this->roomNumber=num;
 }
 //Creature reactToChange should never happen
-int Creature::reactToChange(bool clean) {
-    return false;
+int Creature::reactToChange(int respect, int id, bool clean) {
+    return respect;
+}
+
+int Creature::getCreatureNumber() {
+    return this->creatureNumber;
 }

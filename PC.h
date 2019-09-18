@@ -15,10 +15,11 @@ class PC : public Creature {
         }
         void addRespect(int num);
         void subRespect(int num);
+        void setRespect(int num);
         int getRespect();
         virtual string toString();
         virtual bool isRoomSufficient(Room * room);
-        virtual int reactToChange(bool clean);
+        virtual int reactToChange(int respect, int id,bool clean);
     private:
         int respect;
 };

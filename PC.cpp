@@ -25,6 +25,10 @@ int PC::getRespect() {
     return this->respect;
 }
 // PC will not change its respect
-int PC::reactToChange(bool clean) {
-    return 0;
+int PC::reactToChange(int respect, int id,bool clean) {
+    return respect;
+}
+
+void PC::setRespect(int num) {
+    this->respect = num;
 }

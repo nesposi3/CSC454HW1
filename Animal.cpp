@@ -4,7 +4,7 @@
 
 #include "Animal.h"
 bool Animal::isRoomSufficient(Room *room) {
-    return room->getState()>0;
+    return room->getState()<2;
 }
 string Animal::toString() {
     stringstream stream;
@@ -13,13 +13,19 @@ string Animal::toString() {
     getline(stream,out);
     return out;
 }
-int Animal::reactToChange(bool clean) {
+int Animal::reactToChange(int respect, int id,bool clean) {
+    int diff = 1;
+    string modifier = "";
+    if(id==this->creatureNumber){
+        diff = 3;
+        modifier = " A lot";
+    }
     if(clean){
-        cout << "Lick Face" << endl;
-        return 1;
+        cout << this->toString() <<" licks your face" << modifier<< ". Respect is now " << respect + diff <<endl;
+        return respect + diff;
     }else{
-        cout << "Growl" << endl;
-        return -1;
+        cout <<this->toString() << " growls" << modifier<<". Respect is now " << respect - diff  <<endl;
+        return respect - diff;
     }
 
 }

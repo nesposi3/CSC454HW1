@@ -45,16 +45,16 @@ int Room::getNumCreatures(){
 }
 
 bool Room::clean() {
-    if(this->state!=2){
-        this->state++;
+    if(this->state!=0){
+        this->state--;
         return true;
     }else{
         return false;
     }
 }
 bool Room::dirty() {
-    if(this->state!=0){
-        this->state--;
+    if(this->state!=2){
+        this->state++;
         return true;
     }else{
         return false;
@@ -65,7 +65,7 @@ string Room::toString() {
     stringstream stream;
     string out;
     string cleanStatus;
-    if(this->state==0){
+    if(this->state==2){
         cleanStatus = "dirty";
     }
     else if(this->state==1){
@@ -75,7 +75,23 @@ string Room::toString() {
         cleanStatus="clean";
     }
 
-    stream << "Room no. " <<this->num  <<". "<< this->numCreatures << " creatures. " << "Cleanliness: " << cleanStatus << " North: " << this->north << " South: " << this->south << " East: " << this->east << " West " << this->west;
+    stream << "Room no. " <<this->num  <<". "<< this->numCreatures << " creatures. " << "Cleanliness: " << cleanStatus ;
+    if(this->hasNeighbors()){
+        stream << ". Neighbors to the";
+    }
+    if(this->north!=-1){
+        stream << " north";
+    }
+    if(this->south!=-1){
+        stream << " south";
+    }
+    if(this->east!=-1){
+        stream << " east";
+    }
+    if(this->west!=-1){
+        stream << " west";
+    }
+    stream << ". Creatures:";
     getline(stream,out);
     return out;
 }
@@ -133,6 +149,22 @@ bool Room::isFull() {
 
 void Room::setState(int num) {
     this->state = num;
+}
+
+string Room::whichNeighbor(int newRoomNumber) {
+    if(this->east==newRoomNumber){
+        return "East";
+    }else
+    if(this->west==newRoomNumber){
+        return "West";
+    }else
+    if(this->south==newRoomNumber){
+        return "South";
+    }else if(this->north==newRoomNumber){
+        return "North";
+    }else{
+        return "Unknown";
+    }
 }
 
 

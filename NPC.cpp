@@ -8,7 +8,7 @@ NPC::NPC(int type, int room,int creatureNumber) : Creature(type, room,creatureNu
 
 }
 bool NPC::isRoomSufficient(Room *room) {
-    return room->getState() < 2;
+    return room->getState() > 0;
 }
 string NPC::toString() {
     stringstream stream;
@@ -17,12 +17,18 @@ string NPC::toString() {
     getline(stream,out);
     return out;
 }
-int NPC::reactToChange(bool clean) {
-    if(clean){
-        cout << "Grumble" <<endl;
-        return -1;
+int NPC::reactToChange(int respect, int id,bool clean) {
+    int diff = 1;
+    string modifier = "";
+    if(id==this->creatureNumber){
+        diff = 3;
+        modifier = " A lot";
+    }
+    if(!clean){
+        cout <<this->toString() << " licks your face" << modifier<< ". Respect is now " << respect + diff << endl;
+        return respect + diff;
     }else{
-        cout << "Smile" <<endl;
-        return 1;
+        cout <<this->toString() << " growls" << modifier<< ". Respect is now " << respect - diff <<endl;
+        return respect - diff;
     }
 }

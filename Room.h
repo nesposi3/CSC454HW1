@@ -27,11 +27,10 @@ public:
     void removeCreature();
     bool clean();
     bool dirty();
-    bool hasNeighbors();
     bool isFull();
     bool hasAvailableNeighbors(Room ** rooomList);
+    string whichNeighbor(int newRoomNumber);
     int getRandomNeighbor();
-    vector<int> getNeighbors();
     void setState(int num);
 private:
     int state;
@@ -41,6 +40,9 @@ private:
     int east ;
     int west ;
     int numCreatures;
+    bool hasNeighbors();
+    vector<int> getNeighbors();
+
 };
 
 

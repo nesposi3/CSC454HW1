@@ -16,7 +16,7 @@ public:
     }
     virtual string toString();
     virtual bool isRoomSufficient(Room * room);
-    int reactToChange(bool clean);
+    int reactToChange(int respect, int id,bool clean);
 };
 
 
