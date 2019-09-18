@@ -123,11 +123,10 @@ int main() {
                                     currentCreature->setRoom(newRoom);
                                     currentRoom->removeCreature();
                                     roomList[newRoom]->addCreature();
-                                    if(!currentCreature->isRoomSufficient(roomList[newRoom])){
+                                    if (!currentCreature->isRoomSufficient(roomList[newRoom])) {
                                         roomList[newRoom]->setState(1);
                                     }
-                                }
-                                else{
+                                } else {
                                     //TODO Logic for exiting the simulation
                                 }
                             }
@@ -150,11 +149,10 @@ int main() {
                                     currentCreature->setRoom(newRoom);
                                     currentRoom->removeCreature();
                                     roomList[newRoom]->addCreature();
-                                    if(!currentCreature->isRoomSufficient(roomList[newRoom])){
+                                    if (!currentCreature->isRoomSufficient(roomList[newRoom])) {
                                         roomList[newRoom]->setState(1);
                                     }
-                                }
-                                else{
+                                } else {
                                     //TODO Logic for exiting the simulation
                                 }
                             }
@@ -174,40 +172,42 @@ int main() {
                     if (action == "look") {
                         cout << currentRoom->toString() << endl;
                     } else if (action == "clean") {
-                        if(!currentRoom->clean()){
-                            cout << "Cannot clean an already clean room" <<endl;
+                        if (!currentRoom->clean()) {
+                            cout << "Cannot clean an already clean room" << endl;
                         }
-                    }
-
                     } else if (action == "dirty") {
-                       if(!currentRoom->dirty()){
-                           cout << "Cannot dirty an already dirty room" <<endl;
-                       }
+                        if (!currentRoom->dirty()) {
+                            cout << "Cannot dirty an already dirty room" << endl;
+                        }
 
+                    } else if (action == "north" || action == "south" || action == "west" || action == "east") {
+                        Room *newRoom = movePlayer(action, roomList, currentRoom);
+                        newRoom->addCreature();
+                        commandCreature->setRoom(newRoom->getNum());
                     } else {
                         cout << "Creature " << name << " is not in the same room as the PC" << endl;
                     }
-
-                } else {
-                    cout << "Unknown command: " << command << endl;
                 }
-                if (playerCharacter->getRespect() > 79) {
-                    cout << "Good ending" << endl;
-                    break;
-                } else if (playerCharacter->getRespect() < 1) {
-                    cout << "Bad ending" << endl;
-                    break;
-                }
+            } else {
+                cout << "Unknown command: " << command << endl;
             }
-
+            if (playerCharacter->getRespect() > 79) {
+                cout << "Good ending" << endl;
+                break;
+            } else if (playerCharacter->getRespect() < 1) {
+                cout << "Bad ending" << endl;
+                break;
+            }
         }
 
-        //cleanup
-        for (int i = 0; i < numRooms; i++) {
-            delete roomList[i];
-        }
-        for (int i = 0; i < numCreatures; i++) {
-            delete creatures[i];
-        }
-        return 0;
     }
+
+    //cleanup
+    for (int i = 0; i < numRooms; i++) {
+        delete roomList[i];
+    }
+    for (int i = 0; i < numCreatures; i++) {
+        delete creatures[i];
+    }
+    return 0;
+}
