@@ -25,10 +25,14 @@ int NPC::reactToChange(int respect, int id,bool clean) {
         modifier = " A lot";
     }
     if(!clean){
-        cout <<this->toString() << " licks your face" << modifier<< ". Respect is now " << respect + diff << endl;
+        cout <<this->toString() << " smiles" << modifier<< ". Respect is now " << respect + diff << endl;
         return respect + diff;
     }else{
-        cout <<this->toString() << " growls" << modifier<< ". Respect is now " << respect - diff <<endl;
+        cout <<this->toString() << " grumbles" << modifier<< ". Respect is now " << respect - diff <<endl;
         return respect - diff;
     }
+}
+int NPC::reactToDelete(int respect) {
+    cout << this->toString() << " grumbles. Respect is now " << respect-1 <<endl;
+    return respect-1;
 }

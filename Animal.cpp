@@ -29,3 +29,7 @@ int Animal::reactToChange(int respect, int id,bool clean) {
     }
 
 }
+int Animal::reactToDelete(int respect) {
+    cout << this->toString() << " growls. Respect is now " << respect - 1 <<endl;
+    return respect-1;
+}

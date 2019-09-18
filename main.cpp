@@ -4,7 +4,7 @@
 #include "Animal.h"
 #include "PC.h"
 
-Room *moveCreatue(string direction, Room **roomList, Room *currentRoom,Creature * movedCharacter) {
+Room *moveCreatue(string direction, Room **roomList, Room *currentRoom, Creature *movedCharacter) {
     currentRoom->removeCreature();
     if (direction == "east") {
         if (currentRoom->getEast() == -1) {
@@ -15,7 +15,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom,Creature 
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString()<<" Moved toward the East" <<endl;
+            cout << movedCharacter->toString() << " Moved toward the East" << endl;
             return roomList[currentRoom->getEast()];
         }
     } else if (direction == "west") {
@@ -27,7 +27,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom,Creature 
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString()<<" Moved toward the West" <<endl;
+            cout << movedCharacter->toString() << " Moved toward the West" << endl;
             return roomList[currentRoom->getWest()];
         }
     } else if (direction == "south") {
@@ -39,7 +39,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom,Creature 
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString()<<" Moved toward the South" <<endl;
+            cout << movedCharacter->toString() << " Moved toward the South" << endl;
             return roomList[currentRoom->getSouth()];
         }
     } else if (direction == "north") {
@@ -51,7 +51,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom,Creature 
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString()<<" Moved toward the North" <<endl;
+            cout << movedCharacter->toString() << " Moved toward the North" << endl;
             return roomList[currentRoom->getNorth()];
         }
     } else {
@@ -117,7 +117,8 @@ int main() {
                     for (int i = 0; i < numCreatures; ++i) {
                         Creature *currentCreature = creatures[i];
                         if (currentCreature->inSameRoom(playerCharacter)) {
-                            int respChange = currentCreature->reactToChange(playerCharacter->getRespect(),playerCharacter->getCreatureNumber(),true);
+                            int respChange = currentCreature->reactToChange(playerCharacter->getRespect(),
+                                                                            playerCharacter->getCreatureNumber(), true);
                             playerCharacter->setRespect(respChange);
                             if (!currentCreature->isRoomSufficient(currentRoom)) {
                                 if (currentRoom->hasAvailableNeighbors(roomList)) {
@@ -128,9 +129,17 @@ int main() {
                                     if (!currentCreature->isRoomSufficient(roomList[newRoom])) {
                                         roomList[newRoom]->setState(1);
                                     }
-                                    cout << currentCreature->toString() <<" moves to the " <<currentRoom->whichNeighbor(newRoom) << endl;
+                                    cout << currentCreature->toString() << " moves to the "
+                                         << currentRoom->whichNeighbor(newRoom) << endl;
                                 } else {
-                                    //TODO Logic for exiting the simulation
+                                    currentCreature->deleteFromSim();
+                                    currentRoom->removeCreature();
+                                    for (int j = 0; j <numCreatures ; ++j) {
+                                        if(creatures[j]->inSameRoom(playerCharacter)){
+                                            int newResp = creatures[j]->reactToDelete(playerCharacter->getRespect());
+                                            playerCharacter->setRespect(newResp);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -145,7 +154,9 @@ int main() {
                     for (int i = 0; i < numCreatures; ++i) {
                         Creature *currentCreature = creatures[i];
                         if (currentCreature->inSameRoom(playerCharacter)) {
-                            int respChange = currentCreature->reactToChange(playerCharacter->getRespect(),playerCharacter->getCreatureNumber(),false);
+                            int respChange = currentCreature->reactToChange(playerCharacter->getRespect(),
+                                                                            playerCharacter->getCreatureNumber(),
+                                                                            false);
                             playerCharacter->setRespect(respChange);
                             if (!currentCreature->isRoomSufficient(currentRoom)) {
                                 if (currentRoom->hasAvailableNeighbors(roomList)) {
@@ -156,9 +167,17 @@ int main() {
                                     if (!currentCreature->isRoomSufficient(roomList[newRoom])) {
                                         roomList[newRoom]->setState(1);
                                     }
-                                    cout << currentCreature->toString() <<" moves to the " <<currentRoom->whichNeighbor(newRoom) << endl;
+                                    cout << currentCreature->toString() << " moves to the "
+                                         << currentRoom->whichNeighbor(newRoom) << endl;
                                 } else {
-                                    //TODO Logic for exiting the simulation
+                                    currentCreature->deleteFromSim();
+                                    currentRoom->removeCreature();
+                                    for (int j = 0; j <numCreatures ; ++j) {
+                                        if(creatures[j]->inSameRoom(playerCharacter)){
+                                            int newResp = creatures[j]->reactToDelete(playerCharacter->getRespect());
+                                            playerCharacter->setRespect(newResp);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -166,7 +185,7 @@ int main() {
 
                 }
             } else if (command == "north" || command == "south" || command == "east" || command == "west") {
-                currentRoom = moveCreatue(command, roomList, currentRoom,playerCharacter);
+                currentRoom = moveCreatue(command, roomList, currentRoom, playerCharacter);
                 currentRoom->addCreature();
                 playerCharacter->setRoom(currentRoom->getNum());
             } else if (command.find(':') != string::npos) {
@@ -180,11 +199,12 @@ int main() {
                     } else if (action == "clean") {
                         if (!currentRoom->clean()) {
                             cout << "Cannot clean an already clean room" << endl;
-                        }else {
+                        } else {
                             for (int i = 0; i < numCreatures; ++i) {
-                                Creature * currentCreature = creatures[i];
-                                if(currentCreature->inSameRoom(playerCharacter)){
-                                    int respChange = currentCreature->reactToChange(playerCharacter->getRespect(),name,true);
+                                Creature *currentCreature = creatures[i];
+                                if (currentCreature->inSameRoom(playerCharacter)) {
+                                    int respChange = currentCreature->reactToChange(playerCharacter->getRespect(), name,
+                                                                                    true);
                                     playerCharacter->setRespect(respChange);
                                     if (!currentCreature->isRoomSufficient(currentRoom)) {
                                         if (currentRoom->hasAvailableNeighbors(roomList)) {
@@ -195,24 +215,31 @@ int main() {
                                             if (!currentCreature->isRoomSufficient(roomList[newRoom])) {
                                                 roomList[newRoom]->setState(1);
                                             }
-                                            cout << currentCreature->toString() <<" moves to the " <<currentRoom->whichNeighbor(newRoom) << endl;
+                                            cout << currentCreature->toString() << " moves to the "
+                                                 << currentRoom->whichNeighbor(newRoom) << endl;
                                         } else {
-                                            //TODO Logic for exiting the simulation
+                                            currentCreature->deleteFromSim();
+                                            currentRoom->removeCreature();
+                                            for (int j = 0; j <numCreatures ; ++j) {
+                                                if(creatures[j]->inSameRoom(playerCharacter)){
+                                                    int newResp = creatures[j]->reactToDelete(playerCharacter->getRespect());
+                                                    playerCharacter->setRespect(newResp);
+                                                }
+                                            }
                                         }
                                     }
                                 }
-                                }
-
-
+                            }
                         }
                     } else if (action == "dirty") {
                         if (!currentRoom->dirty()) {
                             cout << "Cannot dirty an already dirty room" << endl;
-                        }else{
+                        } else {
                             for (int i = 0; i < numCreatures; ++i) {
-                                Creature * currentCreature = creatures[i];
-                                if(currentCreature->inSameRoom(playerCharacter)){
-                                    int respChange = currentCreature->reactToChange(playerCharacter->getRespect(),name,false);
+                                Creature *currentCreature = creatures[i];
+                                if (currentCreature->inSameRoom(playerCharacter)) {
+                                    int respChange = currentCreature->reactToChange(playerCharacter->getRespect(), name,
+                                                                                    false);
                                     playerCharacter->setRespect(respChange);
                                     if (!currentCreature->isRoomSufficient(currentRoom)) {
                                         if (currentRoom->hasAvailableNeighbors(roomList)) {
@@ -223,9 +250,17 @@ int main() {
                                             if (!currentCreature->isRoomSufficient(roomList[newRoom])) {
                                                 roomList[newRoom]->setState(1);
                                             }
-                                            cout << currentCreature->toString() <<" moves to the " <<currentRoom->whichNeighbor(newRoom) <<endl;
+                                            cout << currentCreature->toString() << " moves to the "
+                                                 << currentRoom->whichNeighbor(newRoom) << endl;
                                         } else {
-                                            //TODO Logic for exiting the simulation
+                                            currentCreature->deleteFromSim();
+                                            currentRoom->removeCreature();
+                                            for (int j = 0; j <numCreatures ; ++j) {
+                                                if(creatures[j]->inSameRoom(playerCharacter)){
+                                                    int newResp = creatures[j]->reactToDelete(playerCharacter->getRespect());
+                                                    playerCharacter->setRespect(newResp);
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -233,17 +268,17 @@ int main() {
                         }
 
                     } else if (action == "north" || action == "south" || action == "west" || action == "east") {
-                        Room *newRoom = moveCreatue(action, roomList, currentRoom,commandCreature);
+                        Room *newRoom = moveCreatue(action, roomList, currentRoom, commandCreature);
                         newRoom->addCreature();
                         commandCreature->setRoom(newRoom->getNum());
-                        if(!commandCreature->isRoomSufficient(newRoom)){
+                        if (!commandCreature->isRoomSufficient(newRoom)) {
                             newRoom->setState(1);
                         }
-                    } else {
-                        cout << "Creature " << name << " is not in the same room as the PC" << endl;
                     }
+                } else {
+                    cout << commandCreature->toString() << " is not in the same room as the PC" << endl;
                 }
-            }else if(command=="help"){
+            } else if (command == "help") {
                 string help = ("hey"
                                "there");
                 cout << help << endl;

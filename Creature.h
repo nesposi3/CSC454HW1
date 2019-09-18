@@ -18,10 +18,13 @@ class Creature {
         virtual string toString();
         virtual bool isRoomSufficient(Room * room);
         virtual int reactToChange(int respect, int id,bool clean);
+        virtual int reactToDelete(int respect);
         int getCreatureNumber();
         bool inSameRoom( Creature* other);
         void setRoom(int num);
+        void deleteFromSim();
     protected:
+        int deleted;
         int creatureType;
         int roomNumber;
         int creatureNumber;

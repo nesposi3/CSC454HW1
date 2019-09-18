@@ -7,6 +7,7 @@ Creature::Creature(int type, int room,int creatureNumber) {
     this->roomNumber = room;
     this->creatureType = type;
     this->creatureNumber = creatureNumber;
+    this->deleted = 0;
 }
 string Creature::toString() {
     stringstream stream;
@@ -21,7 +22,7 @@ bool Creature::isRoomSufficient(Room *room) {
 }
 
 bool Creature::inSameRoom(Creature * other) {
-    return(this->getRoom()==other->getRoom());
+    return(this->getRoom()==other->getRoom() && (this->deleted==0 && other->deleted==0));
 }
 void Creature::setRoom(int num){
     this->roomNumber=num;
@@ -33,4 +34,13 @@ int Creature::reactToChange(int respect, int id, bool clean) {
 
 int Creature::getCreatureNumber() {
     return this->creatureNumber;
+}
+
+void Creature::deleteFromSim() {
+    this->deleted = 1;
+    cout << this->toString() << " had nowhere to go, so it burrowed through the ceiling" << endl;
+}
+
+int Creature::reactToDelete(int respect) {
+    return respect;
 }

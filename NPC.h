@@ -14,6 +14,7 @@ public:
     NPC(int type, int room,int numCreatures);
     virtual bool isRoomSufficient(Room * room);
     virtual int reactToChange(int respect, int id,bool clean) ;
+    virtual int reactToDelete(int respect);
     virtual string toString();
 };
 
