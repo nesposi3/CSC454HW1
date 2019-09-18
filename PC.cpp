@@ -17,7 +17,7 @@ bool PC::isRoomSufficient(Room *room) {
 string PC::toString() {
     stringstream stream;
     string out;
-    stream << "PC " << creatureNumber;
+    stream << "PC ";
     getline(stream,out);
     return out;
 }

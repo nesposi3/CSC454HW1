@@ -15,7 +15,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom, Creature
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString() << " Moved toward the East" << endl;
+            cout << movedCharacter->toString() << " moved toward the East" << endl;
             return roomList[currentRoom->getEast()];
         }
     } else if (direction == "west") {
@@ -27,7 +27,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom, Creature
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString() << " Moved toward the West" << endl;
+            cout << movedCharacter->toString() << " moved toward the West" << endl;
             return roomList[currentRoom->getWest()];
         }
     } else if (direction == "south") {
@@ -39,7 +39,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom, Creature
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString() << " Moved toward the South" << endl;
+            cout << movedCharacter->toString() << " moved toward the South" << endl;
             return roomList[currentRoom->getSouth()];
         }
     } else if (direction == "north") {
@@ -51,7 +51,7 @@ Room *moveCreatue(string direction, Room **roomList, Room *currentRoom, Creature
                 cout << "Room Full" << endl;
                 return currentRoom;
             }
-            cout << movedCharacter->toString() << " Moved toward the North" << endl;
+            cout << movedCharacter->toString() << " moved toward the North" << endl;
             return roomList[currentRoom->getNorth()];
         }
     } else {
